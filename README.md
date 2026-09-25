@@ -12,12 +12,15 @@ Enable GitHub Pages on the `main` branch at the repository root. The website is 
 
 ## Source notes
 
-- The genuine The Divine logo was obtained from [its public business profile](https://h-id.vyaparify.com/the-divine), then optimized as WebP and PNG favicon.
+- The current logo was supplied directly by the site owner as `489498333_643841368453725_5839864699487322813_n.jpg`. It was optimized as WebP; the PNG favicon is a crop of its silhouette.
 - Salon identity and Sripally/Bardhaman location are supported by the [business profile](https://h-id.vyaparify.com/the-divine) and [Justdial listing](https://www.justdial.com/Bardhaman/The-Divine-Sripally/9999PX342-X342-230312095735-V3E7_BZDET).
 - Hair and skin services appear on the business profile; facials and hair spa appear on the Justdial listing.
 - The WhatsApp contact link on the business profile resolves to `+91 99338 68118`, used for WhatsApp and telephone links.
 - The rating count on Home and Reviews reflects the Justdial listing checked 25 September 2026 and is clearly dated on the pages.
+- The new salon photos were taken from the supplied [Justdial gallery](https://www.justdial.com/Bardhaman/The-Divine-Sripally/9999PX342-X342-230312095735-V3E7_BZDET/gallery?tab=exterior) and the [Google business photo gallery](https://share.google/D52Ie6xfBx8eikM1r). They show The Divine's premises and a stylist at work; responsive WebP copies are stored in `assets/`.
+- The Google listing displayed 4.1/5 from 51 reviews on 25 September 2026. The Reviews page quotes short excerpts by TC-83-RESPONDANTS and Joydeep Chakraborty, with a link to the live listing.
+- The supplied [Facebook video](https://www.facebook.com/watch/?v=220233663669910) is represented by its own preview image and a direct play link. Facebook's external embed returned “Video Unavailable” during testing, so the page avoids showing a broken player.
 - The three editorial photographs were generated for this website. They illustrate hair and skin care and **do not** depict The Divine's premises, team, customers, or completed work. The site labels these visuals accordingly.
 - The supplied Instagram URL is a location page, not an official account profile, so the site labels it “Instagram location.” The supplied Facebook page is linked directly.
 
-No verified price list, email address, opening hours, customer quotes, or portfolio photographs were available. The copy and FAQ direct visitors to confirm those details with the salon.
+No verified price list, email address, opening hours, or client outcome portfolio was available. The copy and FAQ direct visitors to confirm those details with the salon.
