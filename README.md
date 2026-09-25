@@ -4,7 +4,9 @@ Static, multi-page website for The Divine Unisex Salon in Sripally, Bardhaman. B
 
 ## Pages
 
-Home, About, Services, Hair & Grooming, Skin & Facials, Gallery, Reviews, FAQ, and Contact. The Contact form prepares a WhatsApp message in the visitor's browser; it does not store or submit data to a server.
+Home, About, Services, Hair & Grooming, Skin & Facials, Gallery, Reviews, FAQ, Contact, and 29 individual service enquiry pages. The Contact form and appointment dialog prepare WhatsApp messages in the visitor's browser; neither stores data or reserves a slot on a server.
+
+The service categories were requested from the [Moonlight Salon reference](https://www.moonlightsalon.in/index.html). They are presented as enquiry options. The Divine confirms current availability, methods, appointment times, and prices directly. The reference site's testimonials, offers, products, and contact details were not copied.
 
 ## Publishing
 
@@ -13,6 +15,8 @@ Enable GitHub Pages on the `main` branch at the repository root. The website is 
 ## Source notes
 
 - The current logo was supplied directly by the site owner as `489498333_643841368453725_5839864699487322813_n.jpg`. It was optimized as WebP; the PNG favicon is a crop of its silhouette.
+- The round header/footer mark is a crop of that same supplied logo. The original full mark remains in the gallery.
+- The homepage hero uses the supplied `remove_all_the_texts_from_the.mp4`, optimized into silent 1280px and 720px MP4 files with desktop and mobile WebP poster images. The background film is labelled as visual inspiration and uses a static fallback for reduced motion.
 - Salon identity and Sripally/Bardhaman location are supported by the [business profile](https://h-id.vyaparify.com/the-divine) and [Justdial listing](https://www.justdial.com/Bardhaman/The-Divine-Sripally/9999PX342-X342-230312095735-V3E7_BZDET).
 - Hair and skin services appear on the business profile; facials and hair spa appear on the Justdial listing.
 - The WhatsApp contact link on the business profile resolves to `+91 99338 68118`, used for WhatsApp and telephone links.
