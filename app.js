@@ -148,13 +148,89 @@ const bookingForm = document.querySelector('#booking-form');
 const bookingService = document.querySelector('#booking-service');
 const bookingDate = document.querySelector('#booking-date');
 if (bookingDialog && bookingForm && bookingService && bookingDate) {
+  const serviceGroups = [...bookingService.querySelectorAll('optgroup')].map(group => ({
+    name: group.label,
+    services: [...group.querySelectorAll('option')].map(option => ({ value: option.value, name: option.textContent.trim() }))
+  }));
+  const serviceField = bookingService.closest('.field');
+  const servicePicker = document.createElement('div');
+  const categoryTabs = document.createElement('div');
+  const serviceChoices = document.createElement('div');
+  const serviceError = document.createElement('p');
+  let activeCategory = serviceGroups[0]?.name || '';
+  serviceField.classList.add('booking-service-field');
+  serviceField.querySelector('label')?.setAttribute('hidden', '');
+  bookingService.hidden = true;
+  bookingService.required = false;
+  servicePicker.className = 'booking-service-picker';
+  servicePicker.setAttribute('role', 'group');
+  servicePicker.setAttribute('aria-labelledby', 'booking-service-title');
+  const pickerTitle = document.createElement('strong');
+  pickerTitle.id = 'booking-service-title';
+  pickerTitle.className = 'booking-service-title';
+  pickerTitle.textContent = 'Select service category *';
+  categoryTabs.className = 'booking-category-tabs';
+  categoryTabs.setAttribute('aria-label', 'Service categories');
+  serviceChoices.className = 'booking-service-choices';
+  serviceError.className = 'booking-service-error';
+  serviceError.id = 'booking-service-error';
+  serviceError.setAttribute('role', 'alert');
+  serviceError.textContent = 'Please choose a service.';
+  serviceError.hidden = true;
+  servicePicker.append(pickerTitle, categoryTabs, serviceChoices, serviceError);
+  bookingService.after(servicePicker);
+  const renderServicePicker = () => {
+    categoryTabs.replaceChildren();
+    serviceChoices.replaceChildren();
+    serviceGroups.forEach(group => {
+      const tab = document.createElement('button');
+      tab.type = 'button';
+      tab.className = 'booking-category-tab';
+      tab.textContent = group.name;
+      tab.setAttribute('aria-pressed', String(group.name === activeCategory));
+      tab.addEventListener('click', () => {
+        if (activeCategory !== group.name) {
+          activeCategory = group.name;
+          bookingService.value = '';
+          serviceError.hidden = true;
+          renderServicePicker();
+        }
+      });
+      categoryTabs.append(tab);
+    });
+    const group = serviceGroups.find(item => item.name === activeCategory);
+    serviceChoices.setAttribute('aria-label', `Choose a ${activeCategory} service`);
+    group?.services.forEach(service => {
+      const choice = document.createElement('button');
+      choice.type = 'button';
+      choice.className = 'booking-service-choice';
+      choice.textContent = service.name;
+      choice.setAttribute('aria-pressed', String(bookingService.value === service.value));
+      choice.addEventListener('click', () => {
+        bookingService.value = service.value;
+        serviceError.hidden = true;
+        serviceChoices.querySelectorAll('button').forEach(button => {
+          button.setAttribute('aria-pressed', String(button === choice));
+        });
+      });
+      serviceChoices.append(choice);
+    });
+  };
+  const selectBookingService = service => {
+    const option = service ? [...bookingService.options].find(item => item.value === service) : null;
+    bookingService.value = option ? service : '';
+    activeCategory = option?.parentElement?.label || serviceGroups[0]?.name || '';
+    serviceError.hidden = true;
+    renderServicePicker();
+  };
+  renderServicePicker();
   const today = new Date();
   const localDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
   bookingDate.min = localDate;
   let previousFocus = null;
   const openBooking = service => {
     previousFocus = document.activeElement;
-    bookingService.value = service && bookingService.querySelector(`option[value="${CSS.escape(service)}"]`) ? service : '';
+    selectBookingService(service || new URLSearchParams(location.search).get('service'));
     bookingDialog.showModal();
     document.body.classList.add('modal-open');
     bookingDialog.querySelector('#booking-name')?.focus();
@@ -172,6 +248,12 @@ if (bookingDialog && bookingForm && bookingService && bookingDate) {
   });
   bookingForm.addEventListener('submit', event => {
     event.preventDefault();
+    if (!bookingService.value) {
+      serviceError.hidden = false;
+      categoryTabs.querySelector('button[aria-pressed="true"]')?.focus();
+      servicePicker.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      return;
+    }
     if (!bookingForm.reportValidity()) return;
     const data = new FormData(bookingForm);
     const serviceName = bookingService.selectedOptions[0]?.textContent || 'Service enquiry';
@@ -188,10 +270,6 @@ if (bookingDialog && bookingForm && bookingService && bookingDate) {
     ].join('\n');
     window.open(`https://wa.me/919933868118?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   });
-  const requestedService = new URLSearchParams(location.search).get('service');
-  if (requestedService && bookingService.querySelector(`option[value="${CSS.escape(requestedService)}"]`)) {
-    bookingService.value = requestedService;
-  }
 }
 
 document.querySelectorAll('.directory-filter button').forEach(button => {
